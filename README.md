@@ -45,10 +45,13 @@ Convertimos a una matriz modelable todas las palabras de cada línea mediante es
 ### 2.2. NMF y LDA
 Para reducir el tamaño de la matriz (y con eso el tiempo de procesamiento) o evitar la dimensión de la dimensionalidad probamos aplicar estos dos enfoques de reducción de dimensionalidad, pero no terminaron solucionando finalmente ninguno de estas cuestiones: la primera porque al reducir la dimensionalidad se pasaba de una matriz sparse a una densa, con lo cual paradójicamente terminaba aumentando el tamaño de la misma; mientras que en el segundo caso no se espeaba realmente tener maldicion de dimensionalidad ya que a pesar de la gran cantidad de features (34k), igualmente la gran cantidad de líneas (2M) hacía que la matriz tuviera una forma marcadamente "vertical", con lo que no se preveía este problema. Luego de un par de modelos que verificaron esto último, decidimos descartar estos enfoques.
 
-## 2.3. Features de "Comportamiento"
+### 2.3. Features de "Comportamiento"
 Creamos en total 12 variables que llamamos de comportamiento como fueron: cantidad de palabras usadas, de preguntas, de sustantivos, de adjetivos, número de línea, etc. Para esto hicimos varias RegEx y usamos la librería TextBlob.
 
 ## 3. Modelado
+
+### 3.0. Benchmark
+Para tener un modelo de base con el cual comparamos corrimos un modelo simple con BoW + un clasificador de Naive Bayes, el cual corrió muy rápido y obtuvimos un valor del AUC de 0,6.
 
 ### 3.1. Primeros modelos
 Sobre las matrices obtenidas en los puntos 2.1. y 2.3., luego de estandarizarlas aplicamos 6 modelos distintos con búsqueda de hiperparámetros mediante RandomSearch y utilizando CrossValidation, utilizando como criterio de selección el AUC. Los modelos aplicados fueron:
